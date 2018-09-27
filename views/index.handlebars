@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      {{#each article}}
+        <div class="card">
+          <div class="card-header">
+            <a href="{{link}}">{{title}}</a>
+            <div class="btn btn-primary viewNotesBtn" data-id="{{_id}}">View Notes</div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header">
+          Notes
+        </div>
+        <div id="noteDiv" style="display:none">
+          <div class="card-body" id="notesSec">
+            No Notes to Display
+          </div>
+          <div class="card-footer" id="footerDiv">
+            <div class="btn btn-primary" id="editNoteBtn">Edit Note</div>
+            <div id="lowerFooterDiv" style="display:none">
+              <textarea class="noteInput"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
+  <title>News Scraper</title>
+</head>
+
+<body>
+{{{body}}}
+{{!-- <script src="/public/js/index.js"></script>
+ --}}
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+$(".viewNotesBtn").on("click", function() {
+  var url = "/articles/" + $(this).data("id")
+  var that = $(this).data("id");
+  $.ajax({url: url, method: "GET"}).then(function(result){
+      if(result) {
+        $("#notesSec").empty();
+        $("#notesSec").text(JSON.stringify(result));
+        var noteInputBtn = $("<div>").addClass("btn btn-primary noteInputBtn").text("Add Note").attr("data-id", that)
+        $("#lowerFooterDiv").append(noteInputBtn);
+      }
+      else {
+        $("#notesSec").empty();
+        $("#notesSec").text("No Notes to Display");        
+      }
+      $("#noteDiv").slideToggle();
+  });
+})
+
+$("#editNoteBtn").on("click", function() {
+  $(this).slideToggle();
+  $("#lowerFooterDiv").slideToggle();
+
+})
+
+$(".noteInputBtn").on("click", function() {
+  var thisId = $(this).attr("data-id");
+
+  // Run a POST request to change the note, using what's entered in the inputs
+  $.ajax({
+    method: "POST",
+    url: "/articles/" + thisId,
+    data: {
+      note: $(".noteInput").val()
+    }
+  })
+    // With that done
+    .then(function(data) {
+      // Log the response
+      console.log(data);
+    });
+
+  // Also, remove the values entered in the input and textarea for note entry
+  $("#.noteInput").val("");
+  $("#lowerFooterDiv").slideToggle();
+})
+</script>
+</body>
+
+</html>
